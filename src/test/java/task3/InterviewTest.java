@@ -1,6 +1,5 @@
 package task3;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -8,8 +7,7 @@ import java.util.Map;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -50,8 +48,8 @@ public class InterviewTest {
         Person eva = new Person("Eva", "Minge", 42);
         Person anna = new Person("Anna", "Frankson", 5);
         List<Person> collection = asList(sara, eva, viktor, anna);
-        assertThat(interview.getKidNames(collection), CoreMatchers.allOf(hasItems("Sara", "Anna"),
-                CoreMatchers.not(hasItems("Viktor", "Eva"))));
+        assertThat(interview.getKidNames(collection), hasItems("Sara", "Anna"));
+        assertThat(interview.getKidNames(collection), not(hasItems("Viktor", "Eva")));
     }
 
     @Test
