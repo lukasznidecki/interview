@@ -1,36 +1,37 @@
 package task3;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class InterviewTest {
 
     private Interview interview = new Interview();
 
     @Test
-    public void getFullNameTest() throws IllegalAccessException {
+    public void getFullNameTest() {
         String fullName = interview.getFullName(new Person("John", "Smith", 12));
-        assertThat(fullName, is("John Smith"));
+        assertEquals(fullName, "John Smith");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void shouldThrowInvalidArgumentException() throws IllegalArgumentException {
-        interview.getFullName(null);
+        assertThrows(IllegalArgumentException.class, () -> interview.getFullName(null));
     }
 
     @Test
     public void countWordsInString() {
         long count = interview.countWordsStartsWithA("Aasdas Basdas Aasdasd Dasdas Easdasdas Aasdasd");
-        assertThat(count, is(3L));
+        assertEquals(count, 3L);
     }
 
     @Test
@@ -39,7 +40,7 @@ public class InterviewTest {
         Person viktor = new Person("Viktor", "Ravi", 40);
         Person eva = new Person("Eva", "Minge",42);
         List<Person> collection = asList(sara, eva, viktor);
-        assertThat(interview.getOldestPerson(collection), is(eva));
+        assertEquals(interview.getOldestPerson(collection), eva);
     }
 
     @Test
@@ -61,6 +62,6 @@ public class InterviewTest {
         List<Person> collection = asList(sara, eva, viktor);
         Map<String, List<Person>> result = interview.separateBySecondName(collection);
         assertThat(result.get("Ravi"), hasItems(sara, viktor));
-        assertThat(result.get("Minge"), hasItems(eva));
+        assertThat(result.get("Minge"), hasItem(eva));
     }
 }
